@@ -29,6 +29,29 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .tab-btn.active { background-color: #1e3a8a; color: white; border-color: #1e3a8a; }
+
+        /* --- โค้ดสำหรับทำ Background Slider --- */
+        .slider-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: kenburns 15s infinite;
+        }
+        /* หน่วงเวลาให้ภาพสลับกันทีละ 5 วินาที */
+        .slider-bg:nth-child(1) { animation-delay: 0s; }
+        .slider-bg:nth-child(2) { animation-delay: 5s; }
+        .slider-bg:nth-child(3) { animation-delay: 10s; }
+
+        /* เอฟเฟกต์เฟดเข้า-ออก และซูมช้าๆ */
+        @keyframes kenburns {
+            0% { opacity: 0; transform: scale(1); }
+            10% { opacity: 0.5; }
+            25% { opacity: 0.5; }
+            35% { opacity: 0; transform: scale(1.05); }
+            100% { opacity: 0; transform: scale(1.05); }
+        }
     </style>
 </head>
 <body class="bg-brand-light text-slate-800 antialiased selection:bg-brand-accent selection:text-white">
@@ -48,29 +71,44 @@
         </div>
     </nav>
 
-    <!-- 01. Hero Section -->
-    <section id="hero" class="pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
-        <div class="flex-1 space-y-6">
-            <div class="inline-block px-4 py-1.5 bg-blue-100 text-brand-primary font-semibold text-sm rounded-full tracking-wide">
-                BUSINESS ANALYST PORTFOLIO
-            </div>
-            <h1 class="text-4xl md:text-6xl font-bold text-brand-dark leading-tight">
-                Connecting Data to <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-accent">Business Growth.</span>
-            </h1>
-            <p class="text-lg text-slate-600 leading-relaxed max-w-xl">
-                Turning complex business challenges into systematic workflows. With a strong foundation in finance, IoT operations, and end-to-end project management.
-            </p>
-            <div class="flex flex-wrap gap-4 pt-4">
-                <a href="#case-studies" class="px-6 py-3 bg-brand-primary hover:bg-blue-900 text-white font-medium rounded-lg shadow-lg shadow-blue-900/20 transition-all">View Case Studies</a>
-                <a href="Resume_Thanatorn_BA.pdf" download class="px-6 py-3 border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white font-medium rounded-lg transition-all flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    Download Resume
-                </a>
-            </div>
+    <!-- 01. Hero Section (ปรับโครงสร้างใหม่เพิ่ม Slider) -->
+    <section id="hero" class="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
+        
+        <!-- ส่วนรูปภาพพื้นหลังเลื่อนได้ (Background Slider) -->
+        <div class="absolute inset-0 z-0">
+            <!-- ดึงรูปผลงานทั้ง 3 รูปมาใช้ -->
+            <div class="slider-bg" style="background-image: url('IMG_3542.jpg');"></div>
+            <div class="slider-bg" style="background-image: url('IMG_2954.jpg');"></div>
+            <div class="slider-bg" style="background-image: url('IMG_9910.jpg');"></div>
+            <!-- แผ่นฟิล์มสีขาวทับบนรูป เพื่อให้ตัวหนังสืออ่านง่าย -->
+            <div class="absolute inset-0 bg-white/85 backdrop-blur-[2px]"></div>
         </div>
-        <div class="flex-1 relative">
-            <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-2xl transform rotate-3 scale-105 opacity-20"></div>
-            <img src="IMG_7378.jpg" alt="Thanatorn Profile" class="relative z-10 w-full max-w-md mx-auto rounded-2xl shadow-xl object-cover" style="aspect-ratio: 4/5;">
+
+        <!-- เนื้อหาด้านหน้า (Hero Content) -->
+        <div class="relative z-10 w-full max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center gap-12">
+            <div class="flex-1 space-y-6">
+                <div class="inline-block px-4 py-1.5 bg-blue-100/80 backdrop-blur-sm text-brand-primary font-semibold text-sm rounded-full tracking-wide">
+                    BUSINESS ANALYST PORTFOLIO
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold text-brand-dark leading-tight">
+                    Connecting Data to <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-accent">Business Growth.</span>
+                </h1>
+                <p class="text-lg text-slate-700 font-medium leading-relaxed max-w-xl">
+                    Turning complex business challenges into systematic workflows. With a strong foundation in finance, IoT operations, and end-to-end project management.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#case-studies" class="px-6 py-3 bg-brand-primary hover:bg-blue-900 text-white font-medium rounded-lg shadow-lg shadow-blue-900/20 transition-all">View Case Studies</a>
+                    <a href="Resume_Thanatorn_BA.pdf" download class="px-6 py-3 border-2 border-brand-primary bg-white/50 text-brand-primary hover:bg-brand-primary hover:text-white font-medium rounded-lg transition-all flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download Resume
+                    </a>
+                </div>
+            </div>
+            <div class="flex-1 relative">
+                <!-- กรอบรูปโปรไฟล์ -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-2xl transform rotate-3 scale-105 opacity-20"></div>
+                <img src="IMG_7378.jpg" alt="Thanatorn Profile" class="relative z-10 w-full max-w-md mx-auto rounded-2xl shadow-xl object-cover" style="aspect-ratio: 4/5;">
+            </div>
         </div>
     </section>
 
@@ -78,7 +116,7 @@
     <section id="education" class="py-16 bg-white border-t border-slate-100">
         <div class="max-w-6xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="flex items-start gap-4 p-6 bg-slate-50 rounded-xl border border-slate-100">
+                <div class="flex items-start gap-4 p-6 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
                     <div class="p-3 bg-blue-100 text-brand-primary rounded-lg text-2xl">🎓</div>
                     <div>
                         <h3 class="text-xl font-bold text-brand-dark">Bachelor's Degree in Finance</h3>
@@ -86,10 +124,10 @@
                         <p class="text-slate-600 text-sm">Solid foundation in financial analysis, corporate finance, and quantitative data evaluation, forming the core logic of my business analysis approach.</p>
                     </div>
                 </div>
-                <div class="flex items-start gap-4 p-6 bg-slate-50 rounded-xl border border-slate-100">
+                <div class="flex items-start gap-4 p-6 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
                     <div class="p-3 bg-teal-100 text-brand-accent rounded-lg text-2xl">📜</div>
                     <div>
-                        <h3 class="text-xl font-bold text-brand-dark">IC License Level P1(2023)</h3>
+                        <h3 class="text-xl font-bold text-brand-dark">IC License (Level P1)</h3>
                         <p class="text-brand-accent font-medium mb-2">Investment Consultant</p>
                         <p class="text-slate-600 text-sm">Certified by SEC Thailand. Equipped with deep knowledge of financial instruments, complex regulatory compliance, and ethical client advisory standards.</p>
                     </div>
@@ -104,7 +142,7 @@
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-brand-dark">Featured Case Studies</h2>
                 <div class="w-16 h-1 bg-brand-accent mx-auto mt-4 rounded"></div>
-                <p class="text-slate-500 mt-4">สามารถแสดงตัวอย่างไฟล์ในดูในการสัมภาษณ์ได้</p>
+                <p class="text-slate-500 mt-4">เจาะลึกกระบวนการทำงานแบบ End-to-End ตั้งแต่การวิเคราะห์ปัญหาไปจนถึงการส่งมอบผลลัพธ์</p>
             </div>
 
             <div class="overflow-x-auto bg-white rounded-2xl shadow-sm border border-slate-200">
@@ -118,15 +156,12 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-200 text-slate-700 text-sm">
-                        <!-- Row 1 -->
                         <tr class="hover:bg-slate-50 transition-colors">
                             <td class="px-6 py-6 align-top">
                                 <span class="font-bold text-brand-primary text-base block mb-2">Healthcare CAPEX & Valuation Model</span>
                                 <span class="inline-block px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded">Financial Modeling</span>
                             </td>
-                            <td class="px-6 py-6 align-top">
-                                ประเมินความคุ้มค่าการลงทุน (Feasibility) สำหรับการสร้างโปรเจกต์
-                            </td>
+                            <td class="px-6 py-6 align-top">ประเมินความคุ้มค่าการลงทุน (Feasibility) สำหรับการสร้างโปรเจกต์ระดับ Mega Project ในเขตพื้นที่ EEC</td>
                             <td class="px-6 py-6 align-top">
                                 <ul class="list-disc ml-4 space-y-1 text-slate-600">
                                     <li>รวบรวม Requirement จากผู้มีส่วนได้ส่วนเสียเพื่อกำหนดตัวแปรต้นทุน</li>
@@ -134,51 +169,37 @@
                                     <li>คำนวณตารางผลตอบแทน และระยะเวลาคืนทุน (Payback Period)</li>
                                 </ul>
                             </td>
-                            <td class="px-6 py-6 align-top">
-                                เปลี่ยนสมมติฐานทางธุรกิจให้เป็น <b>Data-backed insights</b> ที่จับต้องได้ ช่วยให้ผู้บริหารระดับสูงใช้เจรจากับผู้ลงทุนได้อย่างเป็นรูปธรรม
-                            </td>
+                            <td class="px-6 py-6 align-top">เปลี่ยนสมมติฐานทางธุรกิจให้เป็น <b>Data-backed insights</b> ที่จับต้องได้ ช่วยให้ผู้บริหารระดับสูงใช้เจรจากับผู้ลงทุนได้อย่างเป็นรูปธรรม</td>
                         </tr>
-
-                        <!-- Row 2 -->
                         <tr class="hover:bg-slate-50 transition-colors">
                             <td class="px-6 py-6 align-top">
-                                <span class="font-bold text-brand-primary text-base block mb-2">Framework & SOP</span>
+                                <span class="font-bold text-brand-primary text-base block mb-2">SEC Compliance Framework & SOP</span>
                                 <span class="inline-block px-2 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded">Regulatory Process</span>
                             </td>
-                            <td class="px-6 py-6 align-top">
-                                วางมาตรฐานเนื้อหาและการเปิดเผยความเสี่ยง (Risk Disclosure) ให้สอดคล้องกับระเบียบของแพลตฟอร์มโซเชียลมีเดีย
-                            </td>
+                            <td class="px-6 py-6 align-top">วางมาตรฐานเนื้อหาและการเปิดเผยความเสี่ยง (Risk Disclosure) ให้สอดคล้องกับระเบียบ ก.ล.ต. และแพลตฟอร์มโซเชียลมีเดีย</td>
                             <td class="px-6 py-6 align-top">
                                 <ul class="list-disc ml-4 space-y-1 text-slate-600">
-                                    <li>วิเคราะห์ความเสี่ยงในการสื่อสารด้านการโฆษณาทางการเงิน</li>
+                                    <li>วิเคราะห์ข้อกฎหมาย (Regulatory Analysis) ด้านการโฆษณาทางการเงิน</li>
                                     <li>ร่างเอกสาร SOP เช็กลิสต์สำหรับทีม Marketing ในการตรวจสอบเนื้อหาทางการเงิน</li>
                                     <li>วางแผนผังโครงสร้างการอนุมัติเอกสาร (Approval Routing)</li>
                                 </ul>
                             </td>
-                            <td class="px-6 py-6 align-top">
-                                ลดความเสี่ยงทางกฎหมายขององค์กร และสร้าง <b>Audit Trail</b> ที่โปร่งใสตรวจสอบย้อนหลังได้ 100%
-                            </td>
+                            <td class="px-6 py-6 align-top">ลดความเสี่ยงทางกฎหมายขององค์กร และสร้าง <b>Audit Trail</b> ที่โปร่งใสตรวจสอบย้อนหลังได้ 100%</td>
                         </tr>
-
-                        <!-- Row 3 -->
                         <tr class="hover:bg-slate-50 transition-colors">
                             <td class="px-6 py-6 align-top">
                                 <span class="font-bold text-brand-primary text-base block mb-2">YES Exchange Physical Deployment</span>
                                 <span class="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded">End-to-End Execution</span>
                             </td>
-                            <td class="px-6 py-6 align-top">
-                                ดำเนินการจัดหา และทำรายงานสํารวจพื้นที่
-                            </td>
+                            <td class="px-6 py-6 align-top">ดำเนินการจัดหาพื้นที่ สร้าง และติดตั้งตู้แลกเปลี่ยนเงินตราต่างประเทศ (Exchange Kiosk) ให้พร้อมเปิดใช้งาน</td>
                             <td class="px-6 py-6 align-top">
                                 <ul class="list-disc ml-4 space-y-1 text-slate-600">
                                     <li>ลงพื้นที่สำรวจและวิเคราะห์โลเคชันเชิงพาณิชย์ในกรุงเทพฯ (BD Role)</li>
-                                    <li>เป็นศูนย์กลางประสานงาน ระหว่างผู้รับเหมาก่อสร้างและทีมภายในองค์กร</li>
+                                    <li>เป็นศูนย์กลางประสานงาน (Liaison) ระหว่างผู้รับเหมาก่อสร้างและทีมภายในองค์กร</li>
                                     <li>ควบคุมไทม์ไลน์และงบประมาณการก่อสร้าง</li>
                                 </ul>
                             </td>
-                            <td class="px-6 py-6 align-top">
-                                ส่งมอบหน้างานได้เสร็จสมบูรณ์ พร้อมเปิดดำเนินงานเชิงพาณิชย์ และวาง <b>Operational Workflow</b> ให้ทีมงานใช้งานต่อได้ทันที
-                            </td>
+                            <td class="px-6 py-6 align-top">ส่งมอบหน้างานได้เสร็จสมบูรณ์ พร้อมเปิดดำเนินงานเชิงพาณิชย์ และวาง <b>Operational Workflow</b> ให้ทีมงานใช้งานต่อได้ทันที</td>
                         </tr>
                     </tbody>
                 </table>
@@ -191,7 +212,7 @@
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-brand-dark">The 2023 Turning Point</h2>
-                <p class="text-slate-500 mt-4 max-w-2xl mx-auto">ประสบการณ์เชิงปฏิบัติการที่หล่อหลอมทักษะ</p>
+                <p class="text-slate-500 mt-4 max-w-2xl mx-auto">ประสบการณ์เชิงปฏิบัติการที่หล่อหลอมทักษะ Business Analyst แบบ End-to-End</p>
             </div>
             
             <div class="flex flex-col md:flex-row justify-center gap-4 mb-10">
@@ -200,7 +221,6 @@
                 <button onclick="openTab('tab3')" id="btn-tab3" class="tab-btn px-6 py-3 border border-slate-200 rounded-lg font-medium text-slate-600 hover:bg-slate-50 transition-all bg-slate-50">3. BD & Data Execution</button>
             </div>
             
-            <!-- Tab 1 -->
             <div id="tab1" class="tab-content active bg-slate-50 rounded-2xl p-8 border border-slate-200 shadow-sm">
                 <div class="flex flex-col md:flex-row gap-8 items-center">
                     <img src="IMG_2954.jpg" alt="E-Power IoT" class="w-full md:w-1/2 rounded-xl">
@@ -214,7 +234,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Tab 2 -->
             <div id="tab2" class="tab-content bg-slate-50 rounded-2xl p-8 border border-slate-200 shadow-sm">
                 <div class="flex flex-col md:flex-row gap-8 items-center">
                     <img src="IMG_9910.jpg" alt="Allianz Bluestar" class="w-full md:w-1/2 rounded-xl">
@@ -228,7 +247,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Tab 3 -->
             <div id="tab3" class="tab-content bg-slate-50 rounded-2xl p-8 border border-slate-200 shadow-sm">
                 <div class="flex flex-col md:flex-row gap-8 items-center">
                     <img src="IMG_3542.jpg" alt="Shop Plus YES Exchange" class="w-full md:w-1/2 rounded-xl">
@@ -236,8 +254,8 @@
                         <h3 class="text-2xl font-bold text-brand-primary">Shop Plus Management</h3>
                         <p class="text-slate-600">บทบาท Business Development (BD) และจัดการ Data เชิงปฏิบัติการ</p>
                         <ul class="space-y-2 text-slate-600">
-                            <li class="flex items-start"><span class="text-brand-accent mr-2">✓</span> จัดการโปรเจกต์หาพื้นที่ และประสานงานสร้างบูธ </li>
-                            <li class="flex items-start"><span class="text-brand-accent mr-2">✓</span> ดูแล Marketing Data วิเคราะห์แคมเปญ และประสานงานทีมเซลล์</li>
+                            <li class="flex items-start"><span class="text-brand-accent mr-2">✓</span> <strong>YES Exchange:</strong> จัดการโปรเจกต์หาพื้นที่ และประสานงานสร้างบูธ (End-to-End Execution)</li>
+                            <li class="flex items-start"><span class="text-brand-accent mr-2">✓</span> <strong>TP Trades:</strong> ดูแล Marketing Data วิเคราะห์แคมเปญ และประสานงานทีมเซลล์</li>
                         </ul>
                     </div>
                 </div>
